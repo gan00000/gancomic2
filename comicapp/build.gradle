@@ -1,0 +1,148 @@
+apply plugin: 'com.android.application'
+
+if (file('google-services.json').exists()) {
+    apply plugin: 'com.google.gms.google-services'
+    apply plugin: 'com.google.firebase.crashlytics'
+}
+
+android {
+    signingConfigs {
+
+        sign_release {
+            storeFile file('../key/mmda.key')
+            storePassword 'sfish0000'
+            keyAlias = 'sfish0000'
+            keyPassword 'sfish0000'
+        }
+
+        appSign {
+            keyAlias 'mmsdka'
+            keyPassword 'apk888999'
+            storeFile file('../key/apkextrato.keystore')
+            storePassword 'apk888999'
+        }
+    }
+
+
+
+    compileSdkVersion 30
+
+    defaultConfig {
+
+//        applicationId "com.qqsky.mic"
+        applicationId "com.ssract.one"
+        minSdkVersion 18
+        targetSdkVersion 30
+
+        versionCode 8
+        versionName "8.0"
+        vectorDrawables.useSupportLibrary = true
+        resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW",
+                "es", "ja", "ko", "fr", "de", "th"
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
+        multiDexEnabled true
+        signingConfig signingConfigs.appSign
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+        abortOnError true
+        checkReleaseBuilds true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true  // 是否混淆
+            zipAlignEnabled true // Zipalign优化
+            shrinkResources true  // 是否去除无效的资源文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', '"com.ccsky.sfish.fileprovider"'
+            signingConfig signingConfigs.appSign
+        }
+        debug {
+//            applicationIdSuffix ".debug"
+            buildConfigField 'String', 'FILE_PROVIDER_AUTHORITY', '"com.ccsky.sfish.fileprovider"'
+            signingConfig signingConfigs.appSign
+        }
+    }
+
+//    sourceSets {
+//        main {
+//            java.srcDirs += 'src/main/java-gen'
+//        }
+//    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    // Add firebase dependency
+    implementation 'com.google.firebase:firebase-core:18.0.3'
+    implementation 'com.google.firebase:firebase-ads:20.0.0' //admob广告
+    implementation 'com.google.firebase:firebase-crashlytics:17.4.1' //崩溃分析
+    implementation 'com.google.firebase:firebase-config:20.0.4'
+    implementation 'com.google.firebase:firebase-analytics:18.0.3'
+
+    implementation 'com.google.android.gms:play-services-ads:20.0.0'
+
+
+    implementation 'com.github.amlcurran.showcaseview:library:5.4.3'
+    implementation 'com.github.seven332.a7zip:extract-lite:d4ddec5793'
+    implementation 'com.github.seven332:android-recaptcha:2bbb3459a8'
+    implementation 'com.github.seven332:android-resource:0.1.0'
+    implementation 'com.github.seven332:animator:0.1.0'
+    implementation 'com.github.seven332:beerbelly:0.1.4'
+    implementation 'com.github.seven332:conaco:0.1.5-eh'
+    implementation 'com.github.seven332:drawerlayout:ea2bb388f0'
+    implementation 'com.github.seven332:easyrecyclerview:0.1.1'
+    implementation 'com.github.seven332:glgallery:0.1.2'
+    implementation 'com.github.seven332:glview:0.1.0'
+    implementation 'com.github.seven332:glview-image:0.1.0'
+    implementation 'com.github.seven332:hotspot:0.1.0'
+    implementation 'com.github.seven332:image:0.1.12'
+    implementation 'com.github.seven332:refreshlayout:0.1.0'
+    implementation 'com.github.seven332:ripple:0.1.2'
+    implementation 'com.github.seven332:streampipe:0.1.0'
+    implementation 'com.github.seven332:tuxiang:0.1.6'
+    implementation 'com.github.seven332:unifile:9ec57bcd8f'
+    implementation 'com.github.seven332:yorozuya:0.1.2'
+    implementation 'com.github.seven332:yorozuya-thread:0.1.1'
+    implementation 'com.github.seven332:yorozuya-collect:0.1.4'
+    implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+    implementation 'org.ccil.cowan.tagsoup:tagsoup:1.2.1'
+    implementation 'org.greenrobot:greendao:2.2.1'
+    implementation 'org.jsoup:jsoup:1.11.3'
+
+
+    implementation("com.squareup.okhttp3:okhttp:4.1.0")
+    implementation 'com.getkeepsafe.relinker:relinker:1.3.1'
+    implementation project(path: ':star-core')
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'com.github.seven332:glgallery:25893283ca'
+        force 'com.github.seven332:glview:ba6aee61d7'
+        force 'com.github.seven332:glview-image:68d94b0fc2'
+        force 'com.github.seven332:image:09b43c0c68'
+
+        exclude group: 'com.github.seven332', module: 'okhttp'
+    }
+}

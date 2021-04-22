@@ -1,1 +1,3 @@
+include ':comicapp'
+include ':star-core'
 include ':app'
