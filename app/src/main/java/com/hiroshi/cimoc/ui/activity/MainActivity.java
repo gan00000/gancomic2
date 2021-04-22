@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
+import com.ccsky.sfish.ui.SkyMainActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
             if ((updateUrl = App.getPreferenceManager().getString(PreferenceManager.PREF_UPDATE_CURRENT_URL)) != null) {
                 App.setUpdateCurrentUrl(updateUrl);
             }
-            checkUpdate();
+//            checkUpdate();
         }
 
         if (!showAuthorNotice()) {
@@ -360,12 +361,19 @@ public class MainActivity extends BaseActivity implements MainView, NavigationVi
                     mDrawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.drawer_comiclist:
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.home_page_comiclist_url)));
+//                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.home_page_comiclist_url)));
+//                    try {
+//                        startActivity(intent);
+//                    } catch (Exception e) {
+//                        showSnackbar(R.string.about_resource_fail);
+//                    }
+
                     try {
-                        startActivity(intent);
+                        Intent mIntent = new Intent(this, SkyMainActivity.class);
+                        startActivity(mIntent);
                     } catch (Exception e) {
-                        showSnackbar(R.string.about_resource_fail);
                     }
+
                     break;
                 case R.id.drawer_night:
                     onNightSwitch();

@@ -18,7 +18,7 @@
         <item
         android:id="@+id/drawer_comiclist"
         android:icon="@drawable/ic_class_black_24dp"
-        android:title="@string/drawer_list"/>
+        android:title="@string/comic_passion"/>
         <item
             android:id="@+id/drawer_source"
             android:checkable="true"

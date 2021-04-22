@@ -3,14 +3,16 @@ package com.hiroshi.cimoc.ui.fragment;
 import android.app.Fragment;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hiroshi.cimoc.App;
 import com.hiroshi.cimoc.R;
 import com.hiroshi.cimoc.manager.PreferenceManager;
@@ -44,6 +46,8 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         initProgressBar();
         initView();
         initData();
+
+        reportEvent();
         return view;
     }
 
@@ -97,6 +101,20 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         if (mProgressBar != null) {
             mProgressBar.setVisibility(View.GONE);
         }
+    }
+
+
+
+    private void reportEvent() {
+
+
+        // Obtain the FirebaseAnalytics instance.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this.getActivity());
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,  "ITEM_NAME " + this.getClass().getCanonicalName());
+        mFirebaseAnalytics.logEvent("Event " + this.getClass().getCanonicalName(), bundle);
+
     }
 
 }

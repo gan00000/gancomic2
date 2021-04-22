@@ -55,6 +55,8 @@ public abstract class SkyActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Settings.getApplyNavBarThemeColor()) {
             getWindow().setNavigationBarColor(AttrResources.getAttrColor(this, R.attr.colorPrimaryDark));
         }
+
+        reportEvent();
     }
 
     @Override
@@ -97,5 +99,19 @@ public abstract class SkyActivity extends AppCompatActivity {
         }
 
         super.attachBaseContext(newBase);
+    }
+
+
+    private void reportEvent() {
+
+
+        // Obtain the FirebaseAnalytics instance.
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,  "ITEM_NAME " + this.getClass().getCanonicalName());
+        mFirebaseAnalytics.logEvent("Event " + this.getClass().getCanonicalName(), bundle);
+
     }
 }
