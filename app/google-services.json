@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "271512521468",
-    "firebase_url": "https://cimoc-11974.firebaseio.com",
-    "project_id": "cimoc-11974",
-    "storage_bucket": "cimoc-11974.appspot.com"
+    "project_number": "473719885515",
+    "project_id": "topcomic-e2c06",
+    "storage_bucket": "topcomic-e2c06.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:271512521468:android:33b6c6b6fc4513381da579",
+        "mobilesdk_app_id": "1:473719885515:android:2f9149b2096c4fc270954e",
         "android_client_info": {
-          "package_name": "com.hiroshi.cimoc"
+          "package_name": "com.ttgan.topcimoc"
         }
       },
       "oauth_client": [
         {
-          "client_id": "271512521468-ipurfdujhq4lo9j54sdtocqborsjlgkb.apps.googleusercontent.com",
+          "client_id": "473719885515-8utsn40b5iqnavk74f5i7j0t70p40hf1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyChjVPhKrCinTfKx7gmJLCB85c1zT5EerY"
+          "current_key": "AIzaSyDt7eSqroYcA_pjoo79J5cjpN1fRezeOt0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "271512521468-ipurfdujhq4lo9j54sdtocqborsjlgkb.apps.googleusercontent.com",
+              "client_id": "473719885515-8utsn40b5iqnavk74f5i7j0t70p40hf1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

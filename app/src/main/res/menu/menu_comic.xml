@@ -15,6 +15,7 @@
         android:id="@+id/comic_bbs"
         android:icon="@drawable/ic_chat_bubble_white_24dp"
         android:title="@string/comic_bbs"
+        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/comic_cancel_highlight"
