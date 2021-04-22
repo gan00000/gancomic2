@@ -329,7 +329,7 @@ public final class SkyMainActivity extends StageActivity
 
     @Override
     protected void onCreate2(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_skymain);
 
         mDrawerLayout = (EhDrawerLayout) ViewUtils.$$(this, R.id.draw_view);
         mNavView = (NavigationView) ViewUtils.$$(this, R.id.nav_view);

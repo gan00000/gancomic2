@@ -22,6 +22,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.ccsky.sfish.client.data.GalleryInfo;
 import com.ccsky.sfish.client.data.ListUrlBuilder;
 import com.ccsky.sfish.dao.DaoMaster;
@@ -48,6 +51,8 @@ import com.hippo.yorozuya.IOUtils;
 import com.hippo.yorozuya.ObjectUtils;
 import com.hippo.yorozuya.collect.SparseJLArray;
 
+import org.greenrobot.greendao.query.LazyList;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -56,10 +61,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import de.greenrobot.dao.query.LazyList;
 
 public class SkyDB {
 

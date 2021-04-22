@@ -184,17 +184,17 @@ public class MainActivityNew extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.action_comic:
-                PL.i("action_comic button clicked");
-                reportEventForName("action_comic_clicked");
-
-                Intent mIntent = new Intent(this, SkyMainActivity.class);
-                this.startActivity(mIntent);
-                break;
-            default:
-                break;
-        }
+//        switch (item.getItemId()){
+//            case R.id.action_comic:
+//                PL.i("action_comic button clicked");
+//                reportEventForName("action_comic_clicked");
+//
+//                Intent mIntent = new Intent(this, SkyMainActivity.class);
+//                this.startActivity(mIntent);
+//                break;
+//            default:
+//                break;
+//        }
         return super.onOptionsItemSelected(item);
 
     }

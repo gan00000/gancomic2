@@ -29,17 +29,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.ccsky.scene.Announcer;
+import com.ccsky.scene.SceneFragment;
+import com.ccsky.sfish.R;
+import com.ccsky.sfish.Settings;
+import com.ccsky.sfish.SkyDB;
 import com.ccsky.sfish.client.SkyCacheKeyFactory;
 import com.ccsky.sfish.client.SkyUtils;
 import com.ccsky.sfish.client.data.GalleryInfo;
 import com.ccsky.sfish.dao.HistoryInfo;
+import com.ccsky.sfish.ui.CommonOperations;
+import com.ccsky.sfish.ui.SkyMainActivity;
 import com.ccsky.sfish.widget.SimpleRatingView;
+import com.ccsky.util.DrawableManager;
+import com.ccsky.view.ViewTransition;
+import com.ccsky.widget.LoadImageView;
+import com.ccsky.widget.recyclerview.AutoStaggeredGridLayoutManager;
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.SwipeDismissItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.swipeable.RecyclerViewSwipeManager;
@@ -55,21 +67,11 @@ import com.hippo.easyrecyclerview.EasyRecyclerView;
 import com.hippo.easyrecyclerview.FastScroller;
 import com.hippo.easyrecyclerview.HandlerDrawable;
 import com.hippo.easyrecyclerview.MarginItemDecoration;
-import com.ccsky.sfish.SkyDB;
-import com.ccsky.sfish.R;
-import com.ccsky.sfish.Settings;
-import com.ccsky.sfish.ui.CommonOperations;
-import com.ccsky.sfish.ui.SkyMainActivity;
 import com.hippo.ripple.Ripple;
-import com.ccsky.scene.Announcer;
-import com.ccsky.scene.SceneFragment;
-import com.ccsky.util.DrawableManager;
-import com.ccsky.view.ViewTransition;
-import com.ccsky.widget.LoadImageView;
-import com.ccsky.widget.recyclerview.AutoStaggeredGridLayoutManager;
 import com.hippo.yorozuya.AssertUtils;
 import com.hippo.yorozuya.ViewUtils;
-import de.greenrobot.dao.query.LazyList;
+
+import org.greenrobot.greendao.query.LazyList;
 
 public class HistoryScene extends ToolbarScene
         implements EasyRecyclerView.OnItemClickListener,

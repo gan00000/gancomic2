@@ -17,9 +17,9 @@
 
 <resources>
 
-    <style name="AppTheme" parent="BaseTheme">
-        <item name="android:colorEdgeEffect">?attr/colorEdgeEffect</item>
-    </style>
+<!--    <style name="AppTheme" parent="BaseTheme">-->
+<!--        <item name="android:colorEdgeEffect">?attr/colorEdgeEffect</item>-->
+<!--    </style>-->
 
     <style name="AppTheme.Dark" parent="BaseTheme.Dark">
         <item name="android:colorEdgeEffect">?attr/colorEdgeEffect</item>
