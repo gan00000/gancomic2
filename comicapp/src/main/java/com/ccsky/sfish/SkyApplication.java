@@ -134,7 +134,7 @@ public class SkyApplication extends RecordingApplication {
         SkyDB.initialize(this.getApplicationContext());
         SkyEngine.initialize();
         BitmapUtils.initialize(this.getApplicationContext());
-        Image.initialize(this);
+//        Image.initialize(this);
         A7Zip.loadLibrary(A7ZipExtractLite.LIBRARY, libname -> ReLinker.loadLibrary(SkyApplication.this, libname));
 
         if (SkyDB.needMerge()) {

@@ -82,6 +82,7 @@ import com.ccsky.sfish.widget.EhDrawerLayout;
 import com.ccsky.util.BitmapUtils;
 import com.ccsky.util.PermissionRequester;
 import com.ccsky.widget.LoadImageView;
+import com.getkeepsafe.relinker.ReLinker;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.hippo.drawerlayout.DrawerLayout;
@@ -331,6 +332,8 @@ public final class SkyMainActivity extends StageActivity
     protected void onCreate2(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_skymain);
 
+//        com.hippo.image.Image.initialize(this.getApplicationContext());
+        ReLinker.loadLibrary(this.getApplicationContext(), "image");
         mDrawerLayout = (EhDrawerLayout) ViewUtils.$$(this, R.id.draw_view);
         mNavView = (NavigationView) ViewUtils.$$(this, R.id.nav_view);
         mRightDrawer = (FrameLayout) ViewUtils.$$(this, R.id.right_drawer);
