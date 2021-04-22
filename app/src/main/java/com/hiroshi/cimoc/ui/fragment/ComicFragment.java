@@ -1,16 +1,17 @@
 package com.hiroshi.cimoc.ui.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.ColorRes;
-import com.google.android.material.tabs.TabLayout;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
+
+import com.ccsky.sfish.ui.SkyMainActivity;
+import com.google.android.material.tabs.TabLayout;
 import com.hiroshi.cimoc.R;
 import com.hiroshi.cimoc.component.ThemeResponsive;
 import com.hiroshi.cimoc.manager.PreferenceManager;
@@ -111,9 +112,10 @@ public class ComicFragment extends BaseFragment implements ComicView {
                 startActivity(intent);
                 break;
             case R.id.comic_bbs:
-                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.home_page_gitter_url)));
+//                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.home_page_gitter_url)));
                 try {
-                    startActivity(intent);
+                    Intent mIntent = new Intent(this.getActivity(), SkyMainActivity.class);
+                    startActivity(mIntent);
                 } catch (Exception e) {
                 }
                 break;
