@@ -6,11 +6,13 @@ import android.content.res.Resources;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.multidex.MultiDex;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
+import androidx.multidex.MultiDex;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.ccsky.sfish.SkyApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hiroshi.cimoc.component.AppGetter;
 import com.hiroshi.cimoc.core.Storage;
@@ -41,12 +43,11 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.OkHttpClient;
-import androidx.multidex.MultiDexApplication;
 
 /**
  * Created by Hiroshi on 2016/7/5.
  */
-public class App extends MultiDexApplication implements AppGetter, Thread.UncaughtExceptionHandler {
+public class App extends SkyApplication implements AppGetter, Thread.UncaughtExceptionHandler {
 
     public static int mWidthPixels;
     public static int mHeightPixels;

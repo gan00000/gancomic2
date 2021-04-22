@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar"></style>
 
-    <style name="AppThemeBlue" parent="AppTheme">
+    <style name="AppThemeBlue" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryBlue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryBlueDark</item>
         <item name="colorAccent">@color/colorPrimaryBlueDark</item>
@@ -14,7 +14,7 @@
         <item name="colorAccent">@color/colorPrimaryBlueDark</item>
     </style>
 
-    <style name="AppThemeGrey" parent="AppTheme">
+    <style name="AppThemeGrey" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryGrey</item>
         <item name="colorPrimaryDark">@color/colorPrimaryGreyDark</item>
         <item name="colorAccent">@color/colorPrimaryGreyDark</item>
@@ -25,7 +25,7 @@
         <item name="colorAccent">@color/colorPrimaryGreyDark</item>
     </style>
 
-    <style name="AppThemeTeal" parent="AppTheme">
+    <style name="AppThemeTeal" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryTeal</item>
         <item name="colorPrimaryDark">@color/colorPrimaryTealDark</item>
         <item name="colorAccent">@color/colorPrimaryTealDark</item>
@@ -36,7 +36,7 @@
         <item name="colorAccent">@color/colorPrimaryTealDark</item>
     </style>
 
-    <style name="AppThemePurple" parent="AppTheme">
+    <style name="AppThemePurple" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryPurple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryPurpleDark</item>
         <item name="colorAccent">@color/colorPrimaryPurpleDark</item>
@@ -47,7 +47,7 @@
         <item name="colorAccent">@color/colorPrimaryPurpleDark</item>
     </style>
 
-    <style name="AppThemePink" parent="AppTheme">
+    <style name="AppThemePink" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryPink</item>
         <item name="colorPrimaryDark">@color/colorPrimaryPinkDark</item>
         <item name="colorAccent">@color/colorPrimaryPinkDark</item>
@@ -58,7 +58,7 @@
         <item name="colorAccent">@color/colorPrimaryPinkDark</item>
     </style>
 
-    <style name="AppThemeBrown" parent="AppTheme">
+    <style name="AppThemeBrown" parent="AppTheme2">
         <item name="colorPrimary">@color/colorPrimaryBrown</item>
         <item name="colorPrimaryDark">@color/colorPrimaryBrownDark</item>
         <item name="colorAccent">@color/colorPrimaryBrownDark</item>
