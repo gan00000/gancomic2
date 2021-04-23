@@ -21,6 +21,25 @@ apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 apply plugin: 'com.google.firebase.crashlytics'
 
 android {
+
+    signingConfigs {
+
+        sign_release {
+            storeFile file('../key/mmda.key')
+            storePassword 'sfish0000'
+            keyAlias = 'sfish0000'
+            keyPassword 'sfish0000'
+        }
+
+        appSign {
+            keyAlias 'mmsdka'
+            keyPassword 'apk888999'
+            storeFile file('../key/apkextrato.keystore')
+            storePassword 'apk888999'
+        }
+    }
+
+
     compileSdkVersion 30
 
     compileOptions {
@@ -34,24 +53,25 @@ android {
         targetSdkVersion 30
         versionCode buildVersion
         versionName version
-        resConfigs "en", "zh"
+//        resConfigs "en", "zh"
+//        multiDexEnabled true
+
+        vectorDrawables.useSupportLibrary = true
+        resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW",
+                "es", "ja", "ko", "fr", "de", "th"
+        ndk {
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
         multiDexEnabled true
     }
-    signingConfigs {
-        release {
-            storeFile file(".key.jks")
-            storePassword System.getenv("KEYSTORE_PASS")
-            keyAlias System.getenv("ALIAS_NAME")
-            keyPassword System.getenv("ALIAS_PASS")
-        }
-    }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
             zipAlignEnabled true
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.appSign
         }
         android.applicationVariants.all { variant ->
             variant.outputs.all {
@@ -59,8 +79,21 @@ android {
             }
         }
     }
+//    dexOptions {
+//
+//    }
+
     dexOptions {
+
         additionalParameters = ["--minimal-main-dex"]
+//        incremental true
+//        javaMaxHeapSize "6g"
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+        abortOnError true
+        checkReleaseBuilds true
     }
 }
 

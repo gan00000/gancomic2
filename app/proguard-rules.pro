@@ -16,37 +16,197 @@
 #   public *;
 #}
 
+
+# 保留Annotation不混淆
+-keepattributes *Annotation*,InnerClasses
+
+# 避免混淆泛型
+-keepattributes Signature
+
+# 抛出异常时保留代码行号
+-keepattributes SourceFile,LineNumberTable
+
+#############################################
+#
+# Android开发中一些需要保留的公共部分
+#
+#############################################
+
+# 保留我们使用的四大组件，自定义的Application等等这些类不被混淆
+# 因为这些子类都有可能被外部调用
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Appliction
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.app.backup.BackupAgentHelper
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.view.View
+-keep public class com.android.vending.licensing.ILicensingService
+
+
+# 保留support下的所有类及其内部类
+-keep class android.support.** {*;}
+
+# 保留继承的
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.v7.**
+-keep public class * extends android.support.annotation.**
+
+# 保留R下面的资源
+-keep class **.R$* {*;}
+
+# 保留本地native方法不被混淆
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# 保留在Activity中的方法参数是view的方法，
+# 这样以来我们在layout中写的onClick就不会被影响
+-keepclassmembers class * extends android.app.Activity{
+    public void *(android.view.View);
+}
+
+# 保留枚举类不被混淆
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# 保留我们自定义控件（继承自View）不被混淆
+-keep public class * extends android.view.View{
+    *** get*();
+    void set*(***);
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+    public <init>(android.content.Context, android.util.AttributeSet, int, int);
+}
+
+# 保留Parcelable序列化类不被混淆
+-keep class * implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+# 保留Serializable序列化的类不被混淆
+-keepclassmembers class * implements java.io.Serializable {
+    static final long serialVersionUID;
+    private static final java.io.ObjectStreamField[] serialPersistentFields;
+    !static !transient <fields>;
+    !private <fields>;
+    !private <methods>;
+    private void writeObject(java.io.ObjectOutputStream);
+    private void readObject(java.io.ObjectInputStream);
+    java.lang.Object writeReplace();
+    java.lang.Object readResolve();
+}
+
+# webView处理，项目中没有使用到webView忽略即可
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+    public *;
+}
+
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, jav.lang.String);
+}
+
+
+#############################################
+#
+# 项目中特殊处理部分
+#
+#############################################
+
+#-----------处理自己的库---------------
+-dontwarn com.core.base.**
+
+#-----------处理反射类---------------
+
+
+
+#-----------处理js交互---------------
+#-keep public class com.core.base.js.Native2JS
+-keepclassmembers class com.core.base.js.Native2JS {
+    public *;
+}
+
+
+
+#-----------处理实体类---------------
+# 在开发的时候我们可以将所有的实体类放在一个包内，这样我们写一次混淆就行了。
+#-keep class com.blankj.data.bean.**{ *; }
+
+#-----------处理第三方依赖库---------
+
+#okhttp
+-dontwarn javax.annotation.**
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-keep class okhttp3.** {*;}
+-keep class okio.** {*;}
+
+-dontwarn com.google.android.**
+-keep class com.google.android.** {*;}
+
+-dontwarn com.appsflyer.**
+-keep class com.appsflyer.** {*;}
+
+-dontwarn com.facebook.**
+#-keep class com.facebook.** {*;}
+
+-dontwarn com.jph.takephoto.**
+
+
+-keep class com.ccsky.sfish.dao.** {*;}
+-keep class androidx.** {*;}
+-dontwarn org.jsoup.**
+#-keep class org.jsoup.** {*;}
+
+-dontwarn com.hippo.**
+#-keep class com.hippo.glview.** {*;}
+#-keep class com.hippo.easyrecyclerview.** {*;}
+-keep class com.hippo.a7zip.** {*;}
+-keep class com.hippo.image.** {*;}
+#-keep class com.hippo.tuxiang.** {*;}
+
+-dontwarn com.crashlytics.**
+#-keep class com.crashlytics.** {*;}
+
+-dontwarn io.fabric.**
+#-keep class io.fabric.** {*;}
+
+-dontwarn de.greenrobot.dao.**
+-keep class de.greenrobot.dao.** {*;}
+
+# Gson
+-keepattributes Signature # 避免混淆泛型
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.** { *; }
+# 使用Gson时需要配置Gson的解析对象及变量都不混淆。不然Gson会找不到变量。
+# 将下面替换成自己的实体类
+#-keep class com.example.bean.** { *; }
+
+#greendao
+-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+public static java.lang.String TABLENAME;
+}
+-keep class **$Properties
+
+# If you do not use SQLCipher:
+-dontwarn org.greenrobot.greendao.database.**
+# If you do not use Rx:
+-dontwarn rx.**
+
 -optimizationpasses 5
 
 -keepattributes SourceFile, LineNumberTable
 
-# fresco
-# Keep our interfaces so they can be used by other ProGuard rules.
-# See http://sourceforge.net/p/proguard/bugs/466/
--keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
--keep,allowobfuscation @interface com.facebook.soloader.DoNotOptimize
-
-# Do not strip any method/class that is annotated with @DoNotStrip
--keep @com.facebook.common.internal.DoNotStrip class *
--keepclassmembers class * {
-    @com.facebook.common.internal.DoNotStrip *;
-}
-
-# Do not strip any method/class that is annotated with @DoNotOptimize
--keep @com.facebook.soloader.DoNotOptimize class *
--keepclassmembers class * {
-    @com.facebook.soloader.DoNotOptimize *;
-}
-
-# Keep native methods
--keepclassmembers class * {
-    native <methods>;
-}
-
-# Do not strip SoLoader class and init method
--keep public class com.facebook.soloader.SoLoader {
-    public static void init(android.content.Context, int);
-}
 
 -dontwarn okio.**
 -dontwarn com.squareup.okhttp.**
@@ -56,14 +216,23 @@
 -dontwarn com.facebook.infer.**
 
 # greenDAO
+
+#ref: https://juejin.im/post/5d5fb53b51882554a13f8b6a
+-dontwarn org.greenrobot.greendao.database.**
+-dontwarn org.greenrobot.greendao.rx.**
+
 -keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
 public static java.lang.String TABLENAME;
 }
-#ref: https://juejin.im/post/5d5fb53b51882554a13f8b6a
-#-keep class **$Properties
--keep class **$Properties{*;}
--dontwarn org.greenrobot.greendao.database.**
--dontwarn org.greenrobot.greendao.rx.**
+-keep class **$Properties { *; }
+
+# If you DO use SQLCipher:
+-keep class org.greenrobot.greendao.database.SqlCipherEncryptedHelper { *; }
+
+# If you do NOT use SQLCipher:
+-dontwarn net.sqlcipher.database.**
+# If you do NOT use RxJava:
+-dontwarn rx.**
 
 # ButterKnife
 # Retain generated class which implement Unbinder.
@@ -121,12 +290,9 @@ public static java.lang.String TABLENAME;
 -keep class org.xerial.snappy.** { *; }
 
 # guava
--dontwarn com.google.common.base.**
--keep class com.google.common.base.** {*;}
--dontwarn com.google.errorprone.annotations.**
--keep class com.google.errorprone.annotations.** {*;}
--dontwarn com.google.j2objc.annotations.**
--keep class com.google.j2objc.annotations.** { *; }
+-dontwarn com.google.**
+-keep class com.google.** {*;}
+
 -dontwarn java.lang.ClassValue
 -keep class java.lang.ClassValue { *; }
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
