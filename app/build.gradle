@@ -37,6 +37,13 @@ android {
             storeFile file('../key/apkextrato.keystore')
             storePassword 'apk888999'
         }
+
+        bundleSign {
+            keyAlias 'gan'
+            keyPassword 'gan123456'
+            storeFile file('../key/aaaddx')
+            storePassword 'gan123456'
+        }
     }
 
 
@@ -51,8 +58,8 @@ android {
         applicationId "com.ttgan.topcimoc"
         minSdkVersion 18
         targetSdkVersion 30
-        versionCode buildVersion
-        versionName version
+        versionCode 2
+        versionName "2.0"
 //        resConfigs "en", "zh"
 //        multiDexEnabled true
 
@@ -71,13 +78,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources true
             zipAlignEnabled true
-            signingConfig signingConfigs.appSign
+            signingConfig signingConfigs.bundleSign
         }
-        android.applicationVariants.all { variant ->
-            variant.outputs.all {
-                outputFileName = "Cimoc.apk"
-            }
-        }
+//        android.applicationVariants.all { variant ->
+//            variant.outputs.all {
+//                outputFileName = "Cimoc.apk"
+//            }
+//        }
     }
 //    dexOptions {
 //
@@ -95,7 +102,53 @@ android {
         abortOnError true
         checkReleaseBuilds true
     }
+
+
+    productFlavors {
+
+        aa {
+            applicationId "com.ttgan.topcimoc"
+            minSdkVersion 18
+            targetSdkVersion 30
+            versionCode 2
+            versionName "2.0"
+//        resConfigs "en", "zh"
+//        multiDexEnabled true
+
+            vectorDrawables.useSupportLibrary = true
+            resConfigs "zh", "zh-rCN", "zh-rHK", "zh-rTW",
+                    "es", "ja", "ko", "fr", "de", "th"
+            ndk {
+                abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+            }
+            multiDexEnabled true
+
+            flavorDimensions "aa"
+        }
+
+    }
+
+
+    bundle {
+        density {
+            // Different APKs are generated for devices with different screen densities; true by default.
+            enableSplit false
+        }
+        abi {
+            // Different APKs are generated for devices with different CPU architectures; true by default.
+            enableSplit false
+        }
+
+        language {
+            // This is disabled so that the App Bundle does NOT split the APK for each language.
+            // We're gonna use the same APK for all languages.
+            enableSplit true
+        }
+    }
+
 }
+
+
 
 greendao {
     schemaVersion 10
