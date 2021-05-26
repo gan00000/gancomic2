@@ -193,15 +193,22 @@
 #-keep class com.example.bean.** { *; }
 
 #greendao
--keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
-public static java.lang.String TABLENAME;
-}
+#-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+#public static java.lang.String TABLENAME;
+#}
 -keep class **$Properties
 
 # If you do not use SQLCipher:
 -dontwarn org.greenrobot.greendao.database.**
 # If you do not use Rx:
 -dontwarn rx.**
+
+
+-dontwarn org.xmlpull.v1.XmlPullParser
+-dontwarn org.xmlpull.v1.XmlSerializer
+-keep class org.xmlpull.v1.* {*;}
+
+-keep class com.bumptech.** { *; }
 
 -optimizationpasses 5
 
@@ -217,17 +224,20 @@ public static java.lang.String TABLENAME;
 
 # greenDAO
 
+-keep class org.greenrobot.** { *; }
+-keep interface org.greenrobot.** { *; }
+
 #ref: https://juejin.im/post/5d5fb53b51882554a13f8b6a
 -dontwarn org.greenrobot.greendao.database.**
 -dontwarn org.greenrobot.greendao.rx.**
 
--keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
-public static java.lang.String TABLENAME;
-}
+#-keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
+#public static java.lang.String TABLENAME;
+#}
 -keep class **$Properties { *; }
 
 # If you DO use SQLCipher:
--keep class org.greenrobot.greendao.database.SqlCipherEncryptedHelper { *; }
+#-keep class org.greenrobot.greendao.database.SqlCipherEncryptedHelper { *; }
 
 # If you do NOT use SQLCipher:
 -dontwarn net.sqlcipher.database.**

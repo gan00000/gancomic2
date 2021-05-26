@@ -84,11 +84,15 @@ public class HistoryDao extends AbstractDao<HistoryInfo, Long> {
         String title = entity.getTitle();
         if (title != null) {
             stmt.bindString(3, title);
+        }else{
+            stmt.bindString(3, "");
         }
  
         String titleJpn = entity.getTitleJpn();
         if (titleJpn != null) {
             stmt.bindString(4, titleJpn);
+        }else{
+            stmt.bindString(4, "");
         }
  
         String thumb = entity.getThumb();
@@ -105,12 +109,16 @@ public class HistoryDao extends AbstractDao<HistoryInfo, Long> {
         String uploader = entity.getUploader();
         if (uploader != null) {
             stmt.bindString(8, uploader);
+        }else{
+            stmt.bindString(8, "");
         }
         stmt.bindDouble(9, entity.getRating());
  
         String simpleLanguage = entity.getSimpleLanguage();
         if (simpleLanguage != null) {
             stmt.bindString(10, simpleLanguage);
+        }else{
+            stmt.bindString(10, "");
         }
         stmt.bindLong(11, entity.getMode());
         stmt.bindLong(12, entity.getTime());

@@ -81,11 +81,9 @@ import com.ccsky.sfish.ui.scene.WebViewSignInScene;
 import com.ccsky.sfish.widget.EhDrawerLayout;
 import com.ccsky.util.BitmapUtils;
 import com.ccsky.util.PermissionRequester;
-import com.ccsky.widget.LoadImageView;
 import com.getkeepsafe.relinker.ReLinker;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.hippo.drawerlayout.DrawerLayout;
 import com.hippo.unifile.UniFile;
 import com.hippo.yorozuya.IOUtils;
@@ -117,8 +115,8 @@ public final class SkyMainActivity extends StageActivity
     private NavigationView mNavView;
     @Nullable
     private FrameLayout mRightDrawer;
-    @Nullable
-    private LoadImageView mAvatar;
+//    @Nullable
+//    private LoadImageView mAvatar;
     @Nullable
     private TextView mDisplayName;
     @Nullable
@@ -339,7 +337,7 @@ public final class SkyMainActivity extends StageActivity
         mNavView = (NavigationView) ViewUtils.$$(this, R.id.nav_view);
         mRightDrawer = (FrameLayout) ViewUtils.$$(this, R.id.right_drawer);
         View headerLayout = mNavView.getHeaderView(0);
-        mAvatar = (LoadImageView) ViewUtils.$$(headerLayout, R.id.avatar);
+//        mAvatar = (LoadImageView) ViewUtils.$$(headerLayout, R.id.avatar);
         mDisplayName = (TextView) ViewUtils.$$(headerLayout, R.id.display_name);
         mChangeTheme = (Button) ViewUtils.$$(this, R.id.change_theme);
 
@@ -448,7 +446,7 @@ public final class SkyMainActivity extends StageActivity
         mDrawerLayout = null;
         mNavView = null;
         mRightDrawer = null;
-        mAvatar = null;
+//        mAvatar = null;
         mDisplayName = null;
     }
 
@@ -482,13 +480,17 @@ public final class SkyMainActivity extends StageActivity
     }
 
     private String getTextFromClipboard() {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        if (clipboard != null) {
-            ClipData clip = clipboard.getPrimaryClip();
-            if (clip != null && clip.getItemCount() > 0 && clip.getItemAt(0).getText() != null) {
-                return clip.getItemAt(0).getText().toString();
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                ClipData clip = clipboard.getPrimaryClip();
+                if (clip != null && clip.getItemCount() > 0 && clip.getItemAt(0).getText() != null) {
+                    return clip.getItemAt(0).getText().toString();
+                }
             }
         }
+
         return null;
     }
 
@@ -573,16 +575,17 @@ public final class SkyMainActivity extends StageActivity
     }
 
     public void updateProfile() {
-        if (null == mAvatar || null == mDisplayName) {
+        if (null == mDisplayName) {
             return;
         }
 
-        String avatarUrl = Settings.getAvatar();
-        if (TextUtils.isEmpty(avatarUrl)) {
-            mAvatar.load(R.drawable.default_avatar);
-        } else {
-            mAvatar.load(avatarUrl, avatarUrl);
-        }
+
+//        String avatarUrl = Settings.getAvatar();
+//        if (TextUtils.isEmpty(avatarUrl)) {
+//            mAvatar.load(R.drawable.default_avatar);
+//        } else {
+//            mAvatar.load(avatarUrl, avatarUrl);
+//        }
 
         String displayName = Settings.getDisplayName();
         if (TextUtils.isEmpty(displayName)) {

@@ -596,7 +596,7 @@ public class SkyDB {
         if (null != info) {
             // Update time
             info.time = System.currentTimeMillis();
-            dao.update(info);
+//            dao.update(info);
         } else {
             // New history
             info = new HistoryInfo(galleryInfo);
