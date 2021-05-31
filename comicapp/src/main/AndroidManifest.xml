@@ -39,7 +39,7 @@
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4247177623554873~9500822679"/>
+            android:value="ca-app-pub-4247177623554873~5353260577"/>
 
 <!--        <activity android:name="com.ssract.one.MainActivityNew"-->
 <!--            android:screenOrientation="sensorPortrait"-->
