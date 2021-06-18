@@ -23,9 +23,9 @@ import com.hiroshi.cimoc.ui.activity.PartFavoriteActivity;
 import com.hiroshi.cimoc.ui.activity.SearchActivity;
 import com.hiroshi.cimoc.ui.adapter.TabPagerAdapter;
 import com.hiroshi.cimoc.ui.fragment.dialog.ItemDialogFragment;
+import com.hiroshi.cimoc.ui.fragment.recyclerview.MainPageFragment;
 import com.hiroshi.cimoc.ui.fragment.recyclerview.grid.DownloadFragment;
 import com.hiroshi.cimoc.ui.fragment.recyclerview.grid.FavoriteFragment;
-import com.hiroshi.cimoc.ui.fragment.recyclerview.grid.GridFragment;
 import com.hiroshi.cimoc.ui.fragment.recyclerview.grid.HistoryFragment;
 import com.hiroshi.cimoc.ui.fragment.recyclerview.grid.LocalFragment;
 import com.hiroshi.cimoc.ui.view.ComicView;
@@ -63,31 +63,35 @@ public class ComicFragment extends BaseFragment implements ComicView {
     @Override
     protected void initView() {
         setHasOptionsMenu(true);
+        mTabLayout.addTab(mTabLayout.newTab().setText(R.string.comic_tab_main_page));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.comic_tab_history));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.comic_tab_favorite));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.comic_tab_download));
         mTabLayout.addTab(mTabLayout.newTab().setText(R.string.comic_tab_local));
         mTabAdapter = new TabPagerAdapter(getFragmentManager(),
-                new GridFragment[]{new HistoryFragment(), new FavoriteFragment(), new DownloadFragment(), new LocalFragment()},
-                new String[]{getString(R.string.comic_tab_history), getString(R.string.comic_tab_favorite), getString(R.string.comic_tab_download), getString(R.string.comic_tab_local)});
+                new BaseFragment[]{new MainPageFragment(),new HistoryFragment(), new FavoriteFragment(), new DownloadFragment(), new LocalFragment()},
+                new String[]{getString(R.string.comic_tab_main_page),getString(R.string.comic_tab_history), getString(R.string.comic_tab_favorite), getString(R.string.comic_tab_download), getString(R.string.comic_tab_local)});
         mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(mTabAdapter);
         int home = mPreference.getInt(PreferenceManager.PREF_OTHER_LAUNCH, PreferenceManager.HOME_FAVORITE);
-        switch (home) {
-            default:
-            case PreferenceManager.HOME_FAVORITE:
-                mViewPager.setCurrentItem(1);
-                break;
-            case PreferenceManager.HOME_HISTORY:
-                mViewPager.setCurrentItem(0);
-                break;
-            case PreferenceManager.HOME_DOWNLOAD:
-                mViewPager.setCurrentItem(2);
-                break;
-            case PreferenceManager.HOME_LOCAL:
-                mViewPager.setCurrentItem(3);
-                break;
-        }
+//        switch (home) {
+//
+//            case PreferenceManager.HOME_FAVORITE:
+//                mViewPager.setCurrentItem(2);
+//                break;
+//            case PreferenceManager.HOME_HISTORY:
+//                mViewPager.setCurrentItem(1);
+//                break;
+//            case PreferenceManager.HOME_DOWNLOAD:
+//                mViewPager.setCurrentItem(3);
+//                break;
+//            case PreferenceManager.HOME_LOCAL:
+//                mViewPager.setCurrentItem(4);
+//                break;
+//            default:
+//                mViewPager.setCurrentItem(0);
+//        }
+        mViewPager.setCurrentItem(0);
         mTabLayout.setupWithViewPager(mViewPager);
         mTagList = new ArrayList<>();
         hideProgressBar();

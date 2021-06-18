@@ -103,6 +103,12 @@ public abstract class BaseFragment extends Fragment implements BaseView {
         }
     }
 
+    protected void showProgressBar() {
+        if (mProgressBar != null) {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
 
 
     private void reportEvent() {

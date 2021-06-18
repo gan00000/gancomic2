@@ -59,6 +59,7 @@
     <string name="category">分类</string>
 
     <string name="comic_tab_favorite">收藏</string>
+    <string name="comic_tab_main_page">热门</string>
     <string name="comic_tab_history">历史</string>
     <string name="comic_tab_download">下载</string>
     <string name="comic_tab_local">本地</string>
