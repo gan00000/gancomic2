@@ -1,9 +1,6 @@
 package com.hiroshi.cimoc.ui.fragment.recyclerview;
 
 import android.content.Intent;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,7 +13,6 @@ import com.hiroshi.cimoc.model.Comic;
 import com.hiroshi.cimoc.presenter.BasePresenter;
 import com.hiroshi.cimoc.presenter.ResultPresenter;
 import com.hiroshi.cimoc.ui.activity.DetailActivity;
-import com.hiroshi.cimoc.ui.activity.SearchActivity;
 import com.hiroshi.cimoc.ui.adapter.BaseAdapter;
 import com.hiroshi.cimoc.ui.adapter.ResultAdapter;
 import com.hiroshi.cimoc.ui.view.ResultView;
@@ -35,6 +31,8 @@ public class MainPageFragment extends RecyclerViewFragment implements ResultView
     private ResultAdapter mResultAdapter;
     private LinearLayoutManager mLayoutManager;
     private ControllerBuilderProvider mProvider;
+
+    private int count = 0;
 
     @Override
     protected BasePresenter initPresenter() {
@@ -111,26 +109,30 @@ public class MainPageFragment extends RecyclerViewFragment implements ResultView
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_source, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.comic_search:
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.menu_source, menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.comic_search:
+//                Intent intent = new Intent(getActivity(), SearchActivity.class);
+//                startActivity(intent);
+//                break;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @Override
     public void onItemClick(View view, int position) {
         Comic comic = mResultAdapter.getItem(position);
+
+        if (comic.getId() != null && comic.getId() == -1000l){
+            return;
+        }
         Intent intent = DetailActivity.createIntent(this.getActivity(), null, comic.getSource(), comic.getCid());
         startActivity(intent);
     }
@@ -140,11 +142,34 @@ public class MainPageFragment extends RecyclerViewFragment implements ResultView
     public void onSearchSuccess(Comic comic) {
         hideProgressBar();
         mResultAdapter.add(comic);
+        count = count + 1;
+
+        if (count % 3 == 0){
+            Comic adComic = new Comic();
+            adComic.setId(-1000l);
+            mResultAdapter.add(adComic);
+//            count = count + 1;
+        }
+
     }
 
     @Override
     public void onLoadSuccess(List<Comic> list) {
         hideProgressBar();
+//
+//        List<Comic> templist = new LinkedList<>();
+//
+//        for (int i = 0; i < list.size(); i++) {
+//
+//            templist.add(templist.get(i));
+//            if ( i % 3 == 0){
+//                Comic adComic = new Comic();
+//                adComic.setId(-1000l);
+//                templist.add(adComic);
+//            }
+//
+//        }
+
         mResultAdapter.addAll(list);
     }
 

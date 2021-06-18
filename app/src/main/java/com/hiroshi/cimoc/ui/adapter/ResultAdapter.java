@@ -3,16 +3,19 @@ package com.hiroshi.cimoc.ui.adapter;
 import android.content.Context;
 import android.graphics.Rect;
 import android.net.Uri;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.hiroshi.cimoc.App;
 import com.hiroshi.cimoc.R;
 import com.hiroshi.cimoc.fresco.ControllerBuilderProvider;
@@ -35,6 +38,7 @@ public class ResultAdapter extends BaseAdapter<Comic> {
         super(context, list);
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_result, parent, false);
@@ -45,16 +49,33 @@ public class ResultAdapter extends BaseAdapter<Comic> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         Comic comic = mDataSet.get(position);
+
         ResultViewHolder viewHolder = (ResultViewHolder) holder;
-        viewHolder.comicTitle.setText(comic.getTitle());
-        viewHolder.comicAuthor.setText(comic.getAuthor());
-        viewHolder.comicSource.setText(mTitleGetter.getTitle(comic.getSource()));
-        viewHolder.comicUpdate.setText(comic.getUpdate());
-        ImageRequest request = ImageRequestBuilder
-                .newBuilderWithSource(Uri.parse(comic.getCover()))
-                .setResizeOptions(new ResizeOptions(App.mCoverWidthPixels / 3, App.mCoverHeightPixels / 3))
-                .build();
-        viewHolder.comicImage.setController(mProvider.get(comic.getSource()).setImageRequest(request).build());
+
+        if (comic.getId() != null && comic.getId() == -1000l){
+
+            viewHolder.result_content_view.setVisibility(View.GONE);
+            viewHolder.banner_adView_layout.setVisibility(View.VISIBLE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            viewHolder.aaAdView.loadAd(adRequest);
+
+        }else{
+
+            viewHolder.result_content_view.setVisibility(View.VISIBLE);
+            viewHolder.banner_adView_layout.setVisibility(View.GONE);
+            viewHolder.comicTitle.setText(comic.getTitle());
+            viewHolder.comicAuthor.setText(comic.getAuthor());
+            viewHolder.comicSource.setText(mTitleGetter.getTitle(comic.getSource()));
+            viewHolder.comicUpdate.setText(comic.getUpdate());
+            ImageRequest request = ImageRequestBuilder
+                    .newBuilderWithSource(Uri.parse(comic.getCover()))
+                    .setResizeOptions(new ResizeOptions(App.mCoverWidthPixels / 3, App.mCoverHeightPixels / 3))
+                    .build();
+            viewHolder.comicImage.setController(mProvider.get(comic.getSource()).setImageRequest(request).build());
+        }
+
+
+
     }
 
     public void setProvider(ControllerBuilderProvider provider) {
@@ -87,6 +108,16 @@ public class ResultAdapter extends BaseAdapter<Comic> {
         TextView comicUpdate;
         @BindView(R.id.result_comic_source)
         TextView comicSource;
+
+
+        @BindView(R.id.result_content_view)
+        View result_content_view;
+        @BindView(R.id.banner_adView_layout)
+        View banner_adView_layout;
+        @BindView(R.id.banner_adView)
+        AdView aaAdView;
+
+
 
         ResultViewHolder(View view) {
             super(view);
